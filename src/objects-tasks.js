@@ -17,10 +17,12 @@
  *    shallowCopy({a: 2, b: { a: [1, 2, 3]}}) => {a: 2, b: { a: [1, 2, 3]}}
  *    shallowCopy({}) => {}
  */
-function shallowCopy(/* obj */) {
-  throw new Error('Not implemented');
+function shallowCopy(obj) {
+  return Object.create(
+    Object.getPrototypeOf(obj),
+    Object.getOwnPropertyDescriptors(obj)
+  );
 }
-
 /**
  * Merges array of objects into a single object. If there are overlapping keys, the values
  * should be summed.
@@ -49,10 +51,10 @@ function mergeObjects(/* objects */) {
  *    removeProperties({name: 'John', age: 30, city: 'New York'}, ['age']) => {name: 'John', city: 'New York'}
  *
  */
-function removeProperties(/* obj, keys */) {
-  throw new Error('Not implemented');
+function removeProperties(obj, keys) {
+  keys.forEach((key) => delete obj[key]);
+  return obj;
 }
-
 /**
  * Compares two source objects. Returns true if the objects are equal and false otherwise.
  * There are no nested objects.
